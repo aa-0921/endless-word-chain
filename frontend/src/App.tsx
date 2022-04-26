@@ -74,6 +74,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={ <SignIn /> } />
+            {/* もしサインインできていたら、OutletでchildrenのHomeコンポーネントを表示する */}
             <Route path='/' element={<Private />}>
               <Route path='/' element={<Home/>}/>
             </Route>

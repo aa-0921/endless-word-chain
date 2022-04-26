@@ -1,15 +1,11 @@
 import React from "react"
-
-import { Container, Grid } from '@mantine/core';
-// import { Container, Grid } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
-
+import { Container, Grid, createStyles } from '@mantine/core';
 import HeaderWrapper from "components/layouts/HeaderWrapper"
 
-const useStyles = makeStyles(() => ({
+const useStyles = createStyles(() => ({
   container: {
-    marginTop: "3rem"
-  }
+    marginTop: "3rem",
+  },
 }))
 
 interface CommonLayoutProps {
@@ -18,7 +14,7 @@ interface CommonLayoutProps {
 
 // 全てのページで共通となるレイアウト
 const CommonLayout = ({ children }: CommonLayoutProps) => {
-  const classes = useStyles()
+  const { classes } = useStyles();
 
   return (
     <>
@@ -26,9 +22,7 @@ const CommonLayout = ({ children }: CommonLayoutProps) => {
         <HeaderWrapper />
       </header>
       <main>
-        {/* <Container maxWidth="lg" className={classes.container}> */}
         <Container size="lg" className={classes.container}>
-          {/* <Grid container justifyContent="center"> */}
           <Grid justify="center">
             <Grid>
               {children}

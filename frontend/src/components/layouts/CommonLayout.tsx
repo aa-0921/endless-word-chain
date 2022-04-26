@@ -3,7 +3,7 @@ import React from "react"
 import { Container, Grid } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 
-import Header from "components/layouts/Header"
+import HeaderWrapper from "components/layouts/HeaderWrapper"
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -22,7 +22,7 @@ const CommonLayout = ({ children }: CommonLayoutProps) => {
   return (
     <>
       <header>
-        <Header />
+        <HeaderWrapper />
       </header>
       <main>
         <Container maxWidth="lg" className={classes.container}>

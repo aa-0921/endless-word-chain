@@ -1,53 +1,14 @@
 import React, { useContext, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import Cookies from "js-cookie"
-
-// import { makeStyles, Theme } from "@material-ui/core/styles"
-
-// import AppBar from "@material-ui/core/AppBar"
-// import Toolbar from "@material-ui/core/Toolbar"
-// import Typography from "@material-ui/core/Typography"
-// import Button from "@material-ui/core/Button"
-// import IconButton from "@material-ui/core/IconButton"
-// import MenuIcon from "@material-ui/icons/Menu"
 import { createStyles, Header, Container, Anchor, Group, Burger, Button } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
-// import { MantineLogo } from '../../shared/MantineLogo';
-
 import { signOut } from "lib/api/auth"
-
 import { AuthContext } from "App"
-
-
-// const useStyles = makeStyles((theme: Theme) => ({
-//   iconButton: {
-//     marginRight: theme.spacing(2),
-//   },
-//   title: {
-//     flexGrow: 1,
-//     textDecoration: "none",
-//     color: "inherit"
-//   },
-//   linkBtn: {
-//     textTransform: "none"
-//   }
-// }))
 
 const HEADER_HEIGHT = 84;
 
 const useStyles = createStyles((theme) => ({
-  iconButton: {
-    marginRight: theme.spacing.sm,
-  },
-  title: {
-    flexGrow: 1,
-    textDecoration: "none",
-    color: "inherit"
-  },
-  linkBtn: {
-    textTransform: "none"
-  },
-
   header: {
     backgroundColor: theme.colors[theme.primaryColor][6],
     borderBottom: 0,
@@ -121,23 +82,8 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-// const Header: React.FC = () => {
-
-// interface LinkProps {
-//   label: string;
-//   link: string;
-// }
-
-// interface Props {
-//   mainLinks: LinkProps[];
-// }
-
-
-// export function DoubleHeaderColored ({ mainLinks, userLinks }: DoubleHeaderProps) {
-// export function HeaderWrapper ({ mainLinks }: Props) {
 const HeaderWrapper = () => {
   const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext)
-  // const classes = useStyles()
   const { classes, cx } = useStyles();
     const histroy = useNavigate()
 
@@ -171,7 +117,6 @@ const HeaderWrapper = () => {
         return (
           <Button
             color="inherit"
-            // className={classes.linkBtn}
             className={classes.secondaryLink}
             onClick={handleSignOut}
           >
@@ -185,7 +130,6 @@ const HeaderWrapper = () => {
               component={Link}
               to="/signin"
               color="inherit"
-              // className={classes.linkBtn}
               className={classes.secondaryLink}
             >
               Sign in
@@ -194,7 +138,6 @@ const HeaderWrapper = () => {
               component={Link}
               to="/signup"
               color="inherit"
-              // className={classes.linkBtn}
               className={classes.secondaryLink}
             >
               Sign Up
@@ -207,9 +150,7 @@ const HeaderWrapper = () => {
     }
   }
 
-  // ーーーーーーーーー
   const [opened, toggleOpened] = useBooleanToggle(false);
-  // const { classes, cx } = useStyles();
   const [active, setActive] = useState(0);
 
   const mainLinks =
@@ -239,7 +180,8 @@ const HeaderWrapper = () => {
   const mainItems = mainLinks.map((item, index) => (
     <Anchor<'a'>
       href={item.link}
-      key={item.label}
+      key={ item.label }
+      // cxで、indexとactive(クリックした要素)が一致している場合はclasses.mainLinkActiveクラスをマージする
       className={cx(classes.mainLink, { [classes.mainLinkActive]: index === active })}
       onClick={(event) => {
         event.preventDefault();
@@ -250,49 +192,10 @@ const HeaderWrapper = () => {
     </Anchor>
   ));
 
-  // const secondaryItems = userLinks.map((item) => (
-  //   <Anchor<'a'>
-  //     href={item.link}
-  //     key={item.label}
-  //     onClick={(event) => event.preventDefault()}
-  //     className={classes.secondaryLink}
-  //   >
-  //     {item.label}
-  //   </Anchor>
-  // ));
-
   return (
-    // <>
-    // {/* <AppBar position="static">
-    //   <Toolbar>
-    //     <IconButton
-    //       edge="start"
-    //       className={classes.iconButton}
-    //       color="inherit"
-    //     >
-    //       <MenuIcon />
-    //     </IconButton>
-    //     <Typography
-    //       component={Link}
-    //       to="/"
-    //       variant="h6"
-    //       className={classes.title}
-    //     >
-    //       Sample
-    //     </Typography>
-    //     <AuthButtons />
-    //   </Toolbar>
-    // </AppBar> */}
-    // {/* </> */ }
-
     <Header height={HEADER_HEIGHT} mb={120} className={classes.header}>
       <Container className={classes.inner}>
-        {/* <MantineLogo width={130} variant="white" /> */}
-
         <div className={classes.links}>
-          {/* <Group position="right">{secondaryItems}</Group> */}
-          {/* <Group spacing={0} position="right" className={classes.mainLinks}> */}
-
           <Group spacing={0} position="right" className={classes.mainLinks}>
             { mainItems }
           </Group>

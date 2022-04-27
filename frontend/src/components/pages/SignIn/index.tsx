@@ -4,15 +4,6 @@ import Cookies from "js-cookie"
 
 import { createStyles, Text, TextInput, Card, Title, Space, Button, Box } from '@mantine/core';
 
-// import { makeStyles, Theme } from "@material-ui/core/styles"
-// import { Typography } from "@material-ui/core"
-// import TextField from "@material-ui/core/TextField"
-// import Card from "@material-ui/core/Card"
-// import CardContent from "@material-ui/core/CardContent"
-// import CardHeader from "@material-ui/core/CardHeader"
-// import Button from "@material-ui/core/Button"
-// import Box from "@material-ui/core/Box"
-
 import { AuthContext } from "App"
 import AlertMessage from "components/utils/AlertMessage"
 import { signIn } from "lib/api/auth"

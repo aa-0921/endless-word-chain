@@ -1,25 +1,28 @@
 import React, { useState, useContext } from "react"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import TextField from "@material-ui/core/TextField"
-import Card from "@material-ui/core/Card"
-import CardContent from "@material-ui/core/CardContent"
-import CardHeader from "@material-ui/core/CardHeader"
-import Button from "@material-ui/core/Button"
+import { createStyles, Text, TextInput, Card, Title, Space, Button, Box } from '@mantine/core';
+
+// import { makeStyles, Theme } from "@material-ui/core/styles"
+// import TextField from "@material-ui/core/TextField"
+// import Card from "@material-ui/core/Card"
+// import CardContent from "@material-ui/core/CardContent"
+// import CardHeader from "@material-ui/core/CardHeader"
+// import Button from "@material-ui/core/Button"
 
 import { AuthContext } from "App"
 import AlertMessage from "components/utils/AlertMessage"
 import { signUp } from "lib/api/auth"
 import { SignUpParams } from "interfaces/index"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = createStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(6)
+    marginTop: theme.spacing.lg
   },
   submitBtn: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing.sm,
     flexGrow: 1,
     textTransform: "none"
   },
@@ -27,14 +30,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: "center"
   },
   card: {
-    padding: theme.spacing(2),
-    maxWidth: 400
-  }
+    padding: theme.spacing.sm,
+    // maxWidth: 500,
+    width: 270,
+  },
 }))
 
 // サインアップ用ページ
 const SignUp: React.FC = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const histroy = useNavigate()
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
@@ -86,52 +90,50 @@ const SignUp: React.FC = () => {
     <>
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
-          <CardHeader className={classes.header} title="Sign Up" />
-          <CardContent>
-            <TextField
-              variant="outlined"
+          {/* <CardHeader className={classes.header} title="Sign Up" /> */ }
+          <Card.Section>
+            <Title order={ 2 } align="center">Sign Up</Title>
+          </Card.Section>
+          <Space h="md" />
+          {/* <CardContent> */}
+
+          <Card.Section>
+            <TextInput
+              placeholder="Your name"
               required
-              fullWidth
               label="Name"
               value={name}
-              margin="dense"
               onChange={event => setName(event.target.value)}
             />
-            <TextField
-              variant="outlined"
+            <TextInput
+              placeholder="Your email"
               required
-              fullWidth
               label="Email"
               value={email}
-              margin="dense"
               onChange={event => setEmail(event.target.value)}
             />
-            <TextField
-              variant="outlined"
+            <TextInput
+              placeholder="Enter password"
               required
-              fullWidth
               label="Password"
               type="password"
               value={password}
-              margin="dense"
               autoComplete="current-password"
               onChange={event => setPassword(event.target.value)}
             />
-            <TextField
-              variant="outlined"
+            <TextInput
+              placeholder="Enter password"
               required
-              fullWidth
               label="Password Confirmation"
               type="password"
               value={passwordConfirmation}
-              margin="dense"
               autoComplete="current-password"
               onChange={event => setPasswordConfirmation(event.target.value)}
             />
             <Button
               type="submit"
-              variant="contained"
-              size="large"
+              variant="filled"
+              size="md"
               fullWidth
               color="default"
               disabled={!name || !email || !password || !passwordConfirmation ? true : false}
@@ -140,7 +142,13 @@ const SignUp: React.FC = () => {
             >
               Submit
             </Button>
-          </CardContent>
+            <Box
+              sx={() => ({textAlign: 'center'})}
+            >
+
+            </Box>
+            {/* </CardContent> */ }
+          </Card.Section>
         </Card>
       </form>
       <AlertMessage // エラーが発生した場合はアラートを表示

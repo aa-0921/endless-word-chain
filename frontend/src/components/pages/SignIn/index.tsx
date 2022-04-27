@@ -23,7 +23,8 @@ const useStyles = createStyles((theme) => ({
   },
   card: {
     padding: theme.spacing.sm,
-    maxWidth: 400
+    // maxWidth: 400
+    width: 270,
   },
   box: {
     marginTop: "2rem"
@@ -124,7 +125,7 @@ const SignIn: React.FC = () => {
                   Sign Up now!
                 </Link>
               </Text>
-          </Box>
+            </Box>
           </Card.Section>
         </Card>
       </form>

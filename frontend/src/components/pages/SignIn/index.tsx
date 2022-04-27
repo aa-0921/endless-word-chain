@@ -3,9 +3,10 @@ import { useNavigate, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
 import { createStyles, Text, TextInput, Card, Title, Space, Button, Box } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 
 import { AuthContext } from "App"
-import AlertMessage from "components/utils/AlertMessage"
+// import AlertMessage from "components/utils/AlertMessage"
 import { signIn } from "lib/api/auth"
 import { SignInParams } from "interfaces/index"
 
@@ -43,7 +44,7 @@ const SignIn: React.FC = () => {
 
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+  // const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -70,12 +71,33 @@ const SignIn: React.FC = () => {
 
         console.log("Signed in successfully!")
       } else {
-        setAlertMessageOpen(true)
+        // setAlertMessageOpen(true)
+        handleShowNotification();
       }
     } catch (err) {
       console.log(err)
-      setAlertMessageOpen(true)
+      // setAlertMessageOpen(true)
+      handleShowNotification();
     }
+  }
+
+  const handleShowNotification = () => {
+    showNotification({
+      // id: 'hello-there',
+      // disallowClose: true,
+      // onClose: () => console.log('unmounted'),
+      // onOpen: () => console.log('mounted'),
+      autoClose: 5000,
+      // autoClose: 1000,
+      // title: "You've been compromised",
+      message: 'Invalid emai or password',
+      color: 'red',
+      // icon: <Cross1Icon />,
+      // className: 'my-notification-class',
+      // style: { backgroundColor: 'red' },
+      // sx: { backgroundColor: 'red' },
+      loading: false,
+    });
   }
 
   return (
@@ -129,12 +151,12 @@ const SignIn: React.FC = () => {
           </Card.Section>
         </Card>
       </form>
-      <AlertMessage // エラーが発生した場合はアラートを表示
+      {/* <AlertMessage // エラーが発生した場合はアラートを表示
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
         message="Invalid emai or password"
-      />
+      /> */}
     </>
   )
 }

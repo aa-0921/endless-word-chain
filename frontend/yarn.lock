@@ -1479,6 +1479,13 @@
   dependencies:
     "@mantine/ssr" "4.1.5"
 
+"@mantine/notifications@^4.1.5":
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/@mantine/notifications/-/notifications-4.1.5.tgz#095f5ef9ec731e77e35dac9cd873e2b383fef769"
+  integrity sha512-OOKb4bY1F9fND6rb0WocWNYxvunJO6apIzB7dPblgQLHYRSJmrIJEcN6bCWcdflcMSSk+UB8/BnwQoulNKkLWA==
+  dependencies:
+    react-transition-group "^4.4.2"
+
 "@mantine/ssr@4.1.5":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@mantine/ssr/-/ssr-4.1.5.tgz#70594f5a0932f0da52e069e2ef23e7e8f6572ed0"
@@ -7693,7 +7700,7 @@ react-textarea-autosize@^8.3.2:
     use-composed-ref "^1.0.0"
     use-latest "^1.0.0"
 
-react-transition-group@^4.4.0:
+react-transition-group@^4.4.0, react-transition-group@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.2.tgz#8b59a56f09ced7b55cbd53c36768b922890d5470"
   integrity sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg==

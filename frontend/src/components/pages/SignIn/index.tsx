@@ -2,26 +2,28 @@ import React, { useState, useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
-import { makeStyles, Theme } from "@material-ui/core/styles"
-import { Typography } from "@material-ui/core"
-import TextField from "@material-ui/core/TextField"
-import Card from "@material-ui/core/Card"
-import CardContent from "@material-ui/core/CardContent"
-import CardHeader from "@material-ui/core/CardHeader"
-import Button from "@material-ui/core/Button"
-import Box from "@material-ui/core/Box"
+import { createStyles, Text, TextInput, Card, Title, Space, Button, Box } from '@mantine/core';
+
+// import { makeStyles, Theme } from "@material-ui/core/styles"
+// import { Typography } from "@material-ui/core"
+// import TextField from "@material-ui/core/TextField"
+// import Card from "@material-ui/core/Card"
+// import CardContent from "@material-ui/core/CardContent"
+// import CardHeader from "@material-ui/core/CardHeader"
+// import Button from "@material-ui/core/Button"
+// import Box from "@material-ui/core/Box"
 
 import { AuthContext } from "App"
 import AlertMessage from "components/utils/AlertMessage"
 import { signIn } from "lib/api/auth"
 import { SignInParams } from "interfaces/index"
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = createStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(6)
+    marginTop: theme.spacing.lg,
   },
   submitBtn: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing.sm,
     flexGrow: 1,
     textTransform: "none"
   },
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: "center"
   },
   card: {
-    padding: theme.spacing(2),
+    padding: theme.spacing.sm,
     maxWidth: 400
   },
   box: {
@@ -42,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 // サインイン用ページ
 const SignIn: React.FC = () => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const history = useNavigate()
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
@@ -88,33 +90,31 @@ const SignIn: React.FC = () => {
     <>
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
-          <CardHeader className={classes.header} title="Sign In" />
-          <CardContent>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
+          <Card.Section>
+            <Title order={ 2 } align="center">Sign In</Title>
+          </Card.Section>
+          <Space h="md" />
+          <Card.Section>
+            <TextInput
+              placeholder="Your email"
               label="Email"
               value={email}
-              margin="dense"
+              required
               onChange={event => setEmail(event.target.value)}
             />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
+            <TextInput
+              placeholder="Enter password"
               label="Password"
               type="password"
-              placeholder="At least 6 characters"
-              value={password}
-              margin="dense"
+              value={ password }
               autoComplete="current-password"
+              required
               onChange={event => setPassword(event.target.value)}
             />
             <Button
               type="submit"
-              variant="contained"
-              size="large"
+              variant="filled"
+              size="md"
               fullWidth
               color="default"
               disabled={!email || !password ? true : false} // 空欄があった場合はボタンを押せないように
@@ -123,15 +123,18 @@ const SignIn: React.FC = () => {
             >
               Submit
             </Button>
-            <Box textAlign="center" className={classes.box}>
-              <Typography variant="body2">
-                Don't have an account? &nbsp;
+            <Box
+              className={ classes.box }
+              sx={() => ({textAlign: 'center'})}
+            >
+              <Text size="sm">
+                  Don't have an account? &nbsp;
                 <Link to="/signup" className={classes.link}>
                   Sign Up now!
                 </Link>
-              </Typography>
-            </Box>
-          </CardContent>
+              </Text>
+          </Box>
+          </Card.Section>
         </Card>
       </form>
       <AlertMessage // エラーが発生した場合はアラートを表示

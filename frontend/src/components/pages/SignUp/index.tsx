@@ -1,16 +1,8 @@
 import React, { useState, useContext } from "react"
-// import { useNavigate } from "react-router-dom"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import Cookies from "js-cookie"
 
-import { createStyles, Text, TextInput, Card, Title, Space, Button, Box } from '@mantine/core';
-
-// import { makeStyles, Theme } from "@material-ui/core/styles"
-// import TextField from "@material-ui/core/TextField"
-// import Card from "@material-ui/core/Card"
-// import CardContent from "@material-ui/core/CardContent"
-// import CardHeader from "@material-ui/core/CardHeader"
-// import Button from "@material-ui/core/Button"
+import { createStyles, TextInput, Card, Title, Space, Button, Box } from '@mantine/core';
 
 import { AuthContext } from "App"
 import AlertMessage from "components/utils/AlertMessage"
@@ -90,13 +82,10 @@ const SignUp: React.FC = () => {
     <>
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
-          {/* <CardHeader className={classes.header} title="Sign Up" /> */ }
           <Card.Section>
             <Title order={ 2 } align="center">Sign Up</Title>
           </Card.Section>
           <Space h="md" />
-          {/* <CardContent> */}
-
           <Card.Section>
             <TextInput
               placeholder="Your name"
@@ -142,12 +131,6 @@ const SignUp: React.FC = () => {
             >
               Submit
             </Button>
-            <Box
-              sx={() => ({textAlign: 'center'})}
-            >
-
-            </Box>
-            {/* </CardContent> */ }
           </Card.Section>
         </Card>
       </form>

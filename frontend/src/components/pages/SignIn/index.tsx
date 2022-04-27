@@ -44,7 +44,6 @@ const SignIn: React.FC = () => {
 
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-  // const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -71,12 +70,10 @@ const SignIn: React.FC = () => {
 
         console.log("Signed in successfully!")
       } else {
-        // setAlertMessageOpen(true)
         handleShowNotification();
       }
     } catch (err) {
       console.log(err)
-      // setAlertMessageOpen(true)
       handleShowNotification();
     }
   }
@@ -151,12 +148,6 @@ const SignIn: React.FC = () => {
           </Card.Section>
         </Card>
       </form>
-      {/* <AlertMessage // エラーが発生した場合はアラートを表示
-        open={alertMessageOpen}
-        setOpen={setAlertMessageOpen}
-        severity="error"
-        message="Invalid emai or password"
-      /> */}
     </>
   )
 }

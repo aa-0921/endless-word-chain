@@ -6,7 +6,6 @@ import { createStyles, TextInput, Card, Title, Space, Button } from '@mantine/co
 import { showNotification } from '@mantine/notifications';
 
 import { AuthContext } from "App"
-// import AlertMessage from "components/utils/AlertMessage"
 import { signUp } from "lib/api/auth"
 import { SignUpParams } from "interfaces/index"
 
@@ -40,7 +39,6 @@ const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
-  // const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -71,12 +69,10 @@ const SignUp: React.FC = () => {
 
         console.log("Signed in successfully!")
       } else {
-        // setAlertMessageOpen(true)
         handleShowNotification();
       }
     } catch (err) {
       console.log(err)
-      // setAlertMessageOpen(true)
       handleShowNotification();
     }
   }
@@ -156,12 +152,6 @@ const SignUp: React.FC = () => {
           </Card.Section>
         </Card>
       </form>
-      {/* <AlertMessage // エラーが発生した場合はアラートを表示
-        open={alertMessageOpen}
-        setOpen={setAlertMessageOpen}
-        severity="error"
-        message="Invalid email or password"
-      /> */}
     </>
   )
 }

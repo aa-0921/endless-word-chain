@@ -1,61 +1,64 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext } from 'react'
 import {
   Outlet,
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
-} from "react-router-dom";
+} from 'react-router-dom'
 
-import CommonLayout from "components/layouts/CommonLayout";
-import Home from "components/pages/Home";
-import SignUp from "components/pages/SignUp";
-import SignIn from "components/pages/SignIn";
+import CommonLayout from 'components/layouts/CommonLayout'
+import Home from 'components/pages/Home'
+import SignUp from 'components/pages/SignUp'
+import SignIn from 'components/pages/SignIn'
 
-import { getCurrentUser } from "lib/api/auth";
-import { User } from "interfaces/index";
+import { getCurrentUser } from 'lib/api/auth'
+import { User } from 'interfaces/index'
 
 // グローバルで扱う変数・関数
 export const AuthContext = createContext(
   {} as {
-    loading: boolean;
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-    isSignedIn: boolean;
-    setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
-    currentUser: User | undefined;
-    setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+    loading: boolean
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+    isSignedIn: boolean
+    setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>
+    currentUser: User | undefined
+    setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>
   }
-);
+)
+//       render json: { is_login: true, data: current_api_v1_user }
+// else
+//   render json: { is_login: false, message: "ユーザーが存在しません" }
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<User | undefined>();
+  const [loading, setLoading] = useState<boolean>(true)
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(false)
+  const [currentUser, setCurrentUser] = useState<User | undefined>()
 
   // 認証済みのユーザーがいるかどうかチェック
   // 確認できた場合はそのユーザーの情報を取得
   const handleGetCurrentUser = async () => {
     try {
-      const res = await getCurrentUser();
+      const res = await getCurrentUser()
 
       if (res?.data.isLogin === true) {
-        setIsSignedIn(true);
-        setCurrentUser(res?.data.data);
+        setIsSignedIn(true)
+        setCurrentUser(res?.data.data)
 
-        console.log(res?.data.data);
+        console.log(res?.data.data)
       } else {
-        console.log("No current user");
+        console.log('No current user')
       }
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
 
-    setLoading(false);
-  };
+    setLoading(false)
+  }
 
   useEffect(() => {
-    handleGetCurrentUser();
-  }, [setCurrentUser]);
+    handleGetCurrentUser()
+  }, [setCurrentUser])
 
   // ユーザーが認証済みかどうかでルーティングを決定
   // 未認証だった場合は「/signin」ページに促す
@@ -65,14 +68,12 @@ const App: React.FC = () => {
       if (isSignedIn) {
         // return children
         // 親コンポーネント内で<Outlet />コンポーネントとして呼び出すことで実際にはchildrenが呼び出される
-        return <Outlet />;
-      } else {
-        return <Navigate to="/signin" />;
+        return <Outlet />
       }
-    } else {
-      return <></>;
+      return <Navigate to="/signin" />
     }
-  };
+    return <></>
+  }
 
   return (
     <Router>
@@ -98,7 +99,7 @@ const App: React.FC = () => {
         </CommonLayout>
       </AuthContext.Provider>
     </Router>
-  );
-};
+  )
+}
 
-export default App;
+export default App

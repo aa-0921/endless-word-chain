@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react'
+import React, { useState, useEffect, createContext, useCallback } from 'react'
 import {
   Outlet,
   BrowserRouter as Router,
@@ -15,7 +15,7 @@ import SignIn from 'components/pages/SignIn'
 import { getCurrentUser } from 'lib/api/auth'
 import { User } from 'interfaces/index'
 
-// グローバルで扱う変数・関数
+// グローバルで扱う変数・関数をcreateContextを使って下層コンポーネントでも使用できるようにしている
 export const AuthContext = createContext(
   {} as {
     loading: boolean
@@ -37,7 +37,7 @@ const App: React.FC = () => {
 
   // 認証済みのユーザーがいるかどうかチェック
   // 確認できた場合はそのユーザーの情報を取得
-  const handleGetCurrentUser = async () => {
+  const handleGetCurrentUser = async (): Promise<void> => {
     try {
       const res = await getCurrentUser()
 
@@ -63,7 +63,8 @@ const App: React.FC = () => {
   // ユーザーが認証済みかどうかでルーティングを決定
   // 未認証だった場合は「/signin」ページに促す
   // const Private = ({ children }: { children: React.ReactElement }) => {
-  const Private = () => {
+  // const Private = () => {
+  const Private = useCallback(() => {
     if (!loading) {
       if (isSignedIn) {
         // return children
@@ -73,11 +74,14 @@ const App: React.FC = () => {
       return <Navigate to="/signin" />
     }
     return <></>
-  }
+  }, [loading, isSignedIn])
+
+  // const loading = useMemo(() => (loading), [])
 
   return (
     <Router>
       <AuthContext.Provider
+        // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-constructed-context-values.md
         value={{
           loading,
           setLoading,

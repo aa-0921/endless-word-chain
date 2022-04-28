@@ -58,8 +58,8 @@ const SignIn: React.FC = () => {
     e.preventDefault()
 
     const params: SignInParams = {
-      email: email,
-      password: password,
+      email,
+      password,
     }
 
     try {
@@ -69,8 +69,8 @@ const SignIn: React.FC = () => {
       if (res.status === 200) {
         // ログインに成功した場合はCookieに各値を格納
         Cookies.set('_access_token', res.headers['access-token'])
-        Cookies.set('_client', res.headers['client'])
-        Cookies.set('_uid', res.headers['uid'])
+        Cookies.set('_client', res.headers.client)
+        Cookies.set('_uid', res.headers.uid)
 
         setIsSignedIn(true)
         setCurrentUser(res.data.data)
@@ -107,56 +107,55 @@ const SignIn: React.FC = () => {
   }
 
   return (
-    <>
-      <form noValidate autoComplete="off">
-        <Card className={classes.card}>
-          <Card.Section>
-            <Title order={2} align="center">
-              Sign In
-            </Title>
-          </Card.Section>
-          <Space h="md" />
-          <Card.Section>
-            <TextInput
-              placeholder="Your email"
-              label="Email"
-              value={email}
-              required
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <TextInput
-              placeholder="Enter password"
-              label="Password"
-              type="password"
-              value={password}
-              autoComplete="current-password"
-              required
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <Button
-              type="submit"
-              variant="filled"
-              size="md"
-              fullWidth
-              color="default"
-              disabled={!email || !password ? true : false} // 空欄があった場合はボタンを押せないように
-              className={classes.submitBtn}
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
-            <Box className={classes.box} sx={() => ({ textAlign: 'center' })}>
-              <Text size="sm">
-                Don't have an account? &nbsp;
-                <Link to="/signup" className={classes.link}>
-                  Sign Up now!
-                </Link>
-              </Text>
-            </Box>
-          </Card.Section>
-        </Card>
-      </form>
-    </>
+    <form noValidate autoComplete="off">
+      <Card className={classes.card}>
+        <Card.Section>
+          <Title order={2} align="center">
+            Sign In
+          </Title>
+        </Card.Section>
+        <Space h="md" />
+        <Card.Section>
+          <TextInput
+            placeholder="Your email"
+            label="Email"
+            value={email}
+            required
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <TextInput
+            placeholder="Enter password"
+            label="Password"
+            type="password"
+            value={password}
+            autoComplete="current-password"
+            required
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <Button
+            type="submit"
+            variant="filled"
+            size="md"
+            fullWidth
+            color="default"
+            disabled={!!(!email || !password)} // 空欄があった場合はボタンを押せないように
+            className={classes.submitBtn}
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
+          <Box className={classes.box} sx={() => ({ textAlign: 'center' })}>
+            <Text size="sm">
+              {/* Don't have an account? &nbsp; */}
+              Don&apos;t have an account? &nbsp;
+              <Link to="/signup" className={classes.link}>
+                Sign Up now!
+              </Link>
+            </Text>
+          </Box>
+        </Card.Section>
+      </Card>
+    </form>
   )
 }
 

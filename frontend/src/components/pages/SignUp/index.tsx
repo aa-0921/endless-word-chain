@@ -52,10 +52,10 @@ const SignUp: React.FC = () => {
     e.preventDefault()
 
     const params: SignUpParams = {
-      name: name,
-      email: email,
-      password: password,
-      passwordConfirmation: passwordConfirmation,
+      name,
+      email,
+      password,
+      passwordConfirmation,
     }
 
     try {
@@ -66,8 +66,8 @@ const SignUp: React.FC = () => {
         // アカウント作成と同時にログインさせてしまう
         // 本来であればメール確認などを挟むべきだが、今回はサンプルなので
         Cookies.set('_access_token', res.headers['access-token'])
-        Cookies.set('_client', res.headers['client'])
-        Cookies.set('_uid', res.headers['uid'])
+        Cookies.set('_client', res.headers.client)
+        Cookies.set('_uid', res.headers.uid)
 
         setIsSignedIn(true)
         setCurrentUser(res.data.data)
@@ -105,68 +105,62 @@ const SignUp: React.FC = () => {
   }
 
   return (
-    <>
-      <form noValidate autoComplete="off">
-        <Card className={classes.card}>
-          <Card.Section>
-            <Title order={2} align="center">
-              Sign Up
-            </Title>
-          </Card.Section>
-          <Space h="md" />
-          <Card.Section>
-            <TextInput
-              placeholder="Your name"
-              required
-              label="Name"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-            />
-            <TextInput
-              placeholder="Your email"
-              required
-              label="Email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <TextInput
-              placeholder="Enter password"
-              required
-              label="Password"
-              type="password"
-              value={password}
-              autoComplete="current-password"
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <TextInput
-              placeholder="Enter password"
-              required
-              label="Password Confirmation"
-              type="password"
-              value={passwordConfirmation}
-              autoComplete="current-password"
-              onChange={(event) => setPasswordConfirmation(event.target.value)}
-            />
-            <Button
-              type="submit"
-              variant="filled"
-              size="md"
-              fullWidth
-              color="default"
-              disabled={
-                !name || !email || !password || !passwordConfirmation
-                  ? true
-                  : false
-              }
-              className={classes.submitBtn}
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
-          </Card.Section>
-        </Card>
-      </form>
-    </>
+    <form noValidate autoComplete="off">
+      <Card className={classes.card}>
+        <Card.Section>
+          <Title order={2} align="center">
+            Sign Up
+          </Title>
+        </Card.Section>
+        <Space h="md" />
+        <Card.Section>
+          <TextInput
+            placeholder="Your name"
+            required
+            label="Name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
+          <TextInput
+            placeholder="Your email"
+            required
+            label="Email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <TextInput
+            placeholder="Enter password"
+            required
+            label="Password"
+            type="password"
+            value={password}
+            autoComplete="current-password"
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <TextInput
+            placeholder="Enter password"
+            required
+            label="Password Confirmation"
+            type="password"
+            value={passwordConfirmation}
+            autoComplete="current-password"
+            onChange={(event) => setPasswordConfirmation(event.target.value)}
+          />
+          <Button
+            type="submit"
+            variant="filled"
+            size="md"
+            fullWidth
+            color="default"
+            disabled={!!(!name || !email || !password || !passwordConfirmation)}
+            className={classes.submitBtn}
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
+        </Card.Section>
+      </Card>
+    </form>
   )
 }
 

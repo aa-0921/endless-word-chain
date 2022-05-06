@@ -1,4 +1,10 @@
-import React, { useState, useEffect, createContext, useCallback } from 'react'
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useCallback,
+  useMemo,
+} from 'react'
 import {
   Outlet,
   BrowserRouter as Router,
@@ -73,24 +79,33 @@ const App: React.FC = () => {
       }
       return <Navigate to="/signin" />
     }
-    return <></>
+    // return <></>
+    return null
+    // return <> </>  はどうなのだろうか
   }, [loading, isSignedIn])
 
-  // const loading = useMemo(() => (loading), [])
+  const authProviderValue = useMemo(
+    () => ({
+      loading,
+      setLoading,
+      isSignedIn,
+      setIsSignedIn,
+      currentUser,
+      setCurrentUser,
+    }),
+    [
+      loading,
+      setLoading,
+      isSignedIn,
+      setIsSignedIn,
+      currentUser,
+      setCurrentUser,
+    ]
+  )
 
   return (
     <Router>
-      <AuthContext.Provider
-        // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-constructed-context-values.md
-        value={{
-          loading,
-          setLoading,
-          isSignedIn,
-          setIsSignedIn,
-          currentUser,
-          setCurrentUser,
-        }}
-      >
+      <AuthContext.Provider value={authProviderValue}>
         <CommonLayout>
           <Routes>
             <Route path="/signup" element={<SignUp />} />

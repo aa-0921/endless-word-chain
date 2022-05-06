@@ -30,11 +30,13 @@ export const getCurrentUser = async () => {
     !Cookies.get('_client') ||
     !Cookies.get('_uid')
   )
-    return await client.get('/auth/sessions', {
-      headers: {
-        'access-token': Cookies.get('_access_token') || '',
-        client: Cookies.get('_client') || '',
-        uid: Cookies.get('_uid') || '',
-      },
-    })
+    return
+
+  await client.get('/auth/sessions', {
+    headers: {
+      'access-token': Cookies.get('_access_token') || '',
+      client: Cookies.get('_client') || '',
+      uid: Cookies.get('_uid') || '',
+    },
+  })
 }

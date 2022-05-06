@@ -206,7 +206,8 @@ const HeaderWrapper = () => {
       )
     }
 
-    return <></>
+    // return <></>
+    return null
   }, [loading, isSignedIn, classes.secondaryLink, handleSignOut])
 
   const [opened, toggleOpened] = useBooleanToggle(false)

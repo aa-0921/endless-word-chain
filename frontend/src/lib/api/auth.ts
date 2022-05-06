@@ -24,19 +24,17 @@ export const signOut = () =>
   })
 
 // 認証済みのユーザーを取得
-export const getCurrentUser = () => {
+export const getCurrentUser = async () => {
   if (
     !Cookies.get('_access_token') ||
     !Cookies.get('_client') ||
     !Cookies.get('_uid')
   )
-    return
-  // return client.get('/auth/sessions', {
-  client.get('/auth/sessions', {
-    headers: {
-      'access-token': Cookies.get('_access_token') || '',
-      client: Cookies.get('_client') || '',
-      uid: Cookies.get('_uid') || '',
-    },
-  })
+    return await client.get('/auth/sessions', {
+      headers: {
+        'access-token': Cookies.get('_access_token') || '',
+        client: Cookies.get('_client') || '',
+        uid: Cookies.get('_uid') || '',
+      },
+    })
 }
